@@ -1,0 +1,45 @@
+<div class="container">
+  <h2>{{ editId ? 'Editar' : 'Nueva' }} Biblioteca</h2>
+
+  <form (ngSubmit)="guardar()">
+    <input [(ngModel)]="form.nombre" name="nombre" placeholder="Nombre" required />
+    <input [(ngModel)]="form.direccion" name="direccion" placeholder="Direccion" required />
+    <input [(ngModel)]="form.telefono" name="telefono" placeholder="Telefono" required />
+    <input [(ngModel)]="form.responsable" name="responsable" placeholder="Responsable" required />
+    <div class="form-buttons">
+      <button type="submit">{{ editId ? 'Actualizar' : 'Crear' }}</button>
+      @if (editId) {
+        <button type="button" class="btn-cancel" (click)="cancelar()">Cancelar</button>
+      }
+    </div>
+  </form>
+
+  <h3>Bibliotecas</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Direccion</th>
+        <th>Telefono</th>
+        <th>Responsable</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (b of bibliotecas(); track b.id) {
+        <tr>
+          <td>{{ b.id }}</td>
+          <td>{{ b.nombre }}</td>
+          <td>{{ b.direccion }}</td>
+          <td>{{ b.telefono }}</td>
+          <td>{{ b.responsable }}</td>
+          <td class="actions">
+            <button (click)="editar(b)">Editar</button>
+            <button class="btn-delete" (click)="eliminar(b.id!)">Eliminar</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
